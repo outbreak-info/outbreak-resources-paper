@@ -1,3 +1,7 @@
+library(outbreakinfo)
+library(tidyverse)
+
+
 # query the API to get the resources by date. Filter to > 1 January 2020, to remove the weirdos that slipped through.
 resources_by_date = getResourcesData(query = "date:[2020-01-01 TO *]", fields = "date", fetchAll = TRUE)
 
@@ -23,7 +27,7 @@ ggplot(resources_per_week, aes(x = iso_date, y = n)) +
     axis.title = element_blank(),
     axis.text = element_text(size = 16),
     plot.title = element_text(size = 20),
-    plot.subtitle = element_text(colour="#777777", size=9)
+    plot.subtitle = element_text(colour="#777777", size=12)
   ) +
   scale_y_continuous(label=scales::comma) +
   scale_x_datetime(limits = c(min(resources_per_week$iso_date, na.rm = T), max(resources_per_week$iso_date, na.rm = T)), date_labels = "%b %Y")
