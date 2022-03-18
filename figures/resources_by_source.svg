@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 26.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 1008 720" style="enable-background:new 0 0 1008 720;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#59A04E;}
+	.st1{font-family:'DMSans-Regular';}
+	.st2{font-size:11.04px;}
+	.st3{fill:none;}
+	.st4{enable-background:new    ;}
+	.st5{fill:#4D4D4D;}
+	.st6{font-size:17.6px;}
+	.st7{letter-spacing:1;}
+	.st8{fill:none;stroke:#EBEBEB;stroke-width:0.53;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st9{fill:none;stroke:#EBEBEB;stroke-width:1.07;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st10{clip-path:url(#SVGID_00000047034293980758155600000015408369532656807845_);}
+	.st11{fill:#1A1A1A;}
+	.st12{letter-spacing:2;}
+	.st13{fill:#B6992D;stroke:#B6992D;stroke-width:1.07;stroke-linecap:square;stroke-miterlimit:10;}
+	.st14{fill:#B6992D;}
+</style>
+<g>
+	<rect x="638.4" y="130.9" class="st0" width="9.1" height="14.3"/>
+	<text transform="matrix(1 0 0 1 656.16 141.9337)" class="st0 st1 st2">3</text>
+	<rect x="558.6" y="129.3" class="st3" width="68.1" height="19.6"/>
+	<text transform="matrix(1 0 0 1 558.6367 144.2337)" class="st4"><tspan x="0" y="0" class="st5 st1 st6 st7">Figsha</tspan><tspan x="61.7" y="0" class="st5 st1 st6">r</tspan></text>
+</g>
+<line class="st8" x1="607.3" y1="124.3" x2="607.3" y2="95.7"/>
+<line class="st8" x1="668.8" y1="152.1" x2="668.8" y2="95.7"/>
+<line class="st8" x1="729.4" y1="152.1" x2="729.4" y2="95.7"/>
+<line class="st8" x1="790.1" y1="152.1" x2="790.1" y2="95.7"/>
+<line class="st9" x1="638.4" y1="152.1" x2="638.4" y2="95.7"/>
+<line class="st9" x1="699.1" y1="152.1" x2="699.1" y2="95.7"/>
+<line class="st9" x1="759.7" y1="152.1" x2="759.7" y2="95.7"/>
+<line class="st9" x1="827.4" y1="152.1" x2="827.4" y2="95.7"/>
+<g>
+	<defs>
+		<rect id="SVGID_1_" x="630.1" y="62.5" width="183.5" height="25.2"/>
+	</defs>
+	<clipPath id="SVGID_00000176765056648420070250000004931338433933030570_">
+		<use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
+	</clipPath>
+	<g style="clip-path:url(#SVGID_00000176765056648420070250000004931338433933030570_);">
+		<rect x="635.5" y="66.3" class="st3" width="173.7" height="19.6"/>
+		<text transform="matrix(1 0 0 1 635.4678 81.23)" class="st4"><tspan x="0" y="0" class="st11 st1 st6 st12">SoftwareSource</tspan><tspan x="164.7" y="0" class="st11 st1 st6">-</tspan></text>
+	</g>
+</g>
+<rect x="632.3" y="154.4" class="st3" width="12.2" height="19.6"/>
+<text transform="matrix(1 0 0 1 632.332 169.3301)" class="st5 st1 st6">0</text>
+<rect x="688" y="154.4" class="st3" width="22.3" height="19.6"/>
+<text transform="matrix(1 0 0 1 688.0459 169.3301)" class="st5 st1 st6">20</text>
+<rect x="748.3" y="154.4" class="st3" width="22.9" height="19.6"/>
+<text transform="matrix(1 0 0 1 748.3174 169.3301)" class="st5 st1 st6">40</text>
+<rect x="638.4" y="103.4" class="st13" width="15.2" height="14.3"/>
+<text transform="matrix(1 0 0 1 662.23 114.39)" class="st14 st1 st2">5</text>
+<rect x="532.9" y="101.7" class="st3" width="95.3" height="19.6"/>
+<text transform="matrix(1 0 0 1 544.1621 116.6802)" class="st5 st1 st6">MRC GIDA</text>
+</svg>

@@ -18,6 +18,8 @@ resources_per_week = resources_by_date %>%
 
 # plot!
 fill_color = "#66c2a5"
+resources_per_week = resources_per_week %>% filter(iso_date != as.Date("2022-12-26"))
+
 ggplot(resources_per_week, aes(x = iso_date, y = n)) +
   geom_bar(fill = fill_color, stat="identity") +
   ggtitle("COVID-19 resources have rapidly proliferated", subtitle="Number of publications, datasets, clinical trials, and more added each week to outbreak.info's Research Library") +
@@ -29,5 +31,5 @@ ggplot(resources_per_week, aes(x = iso_date, y = n)) +
     plot.title = element_text(size = 20),
     plot.subtitle = element_text(colour="#777777", size=12)
   ) +
-  scale_y_continuous(label=scales::comma) +
+  scale_y_continuous(label=scales::comma, limits=c(0, 6000)) +
   scale_x_datetime(limits = c(min(resources_per_week$iso_date, na.rm = T), max(resources_per_week$iso_date, na.rm = T)), date_labels = "%b %Y")

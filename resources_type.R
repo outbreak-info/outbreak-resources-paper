@@ -43,47 +43,50 @@ types = c("Other", resources_by_type %>% pull(term) %>% rev())
 resources_by_source_grouped$type_grouped = factor(resources_by_source_grouped$type_grouped, types)
 resources_by_source_grouped$term = factor(resources_by_source_grouped$term, resources_by_curator %>% rev())
 
+
+
+# Resources by type donut chart
+COLORPALETTE = c("#4E79A7", "#f28e2b", "#59a14f","#e15759", "#499894","#B6992D",  "#D37295", "#B07AA1","#9D7660", "#bcbd22",
+                 "#aecBe8", "#FFBE7D",  "#8CD17D", "#FF9D9A",  "#86BCB6", "#F1CE63","#FABFD2",  "#D4A6C8", "#D7B5A6",  "#79706E")
+
+names(COLORPALETTE) = resources_by_type_grouped %>% arrange(desc(count)) %>% pull(type_grouped)
+
+resources_by_type_grouped = resources_by_type %>% 
+  mutate(type_grouped = ifelse(term %in% c("Publication", "ClinicalTrial", "Dataset", "Protocol", "SoftwareSourceCode", "Analysis"),
+                               term, "Other")) %>% 
+  group_by(type_grouped) %>% 
+  summarise(count = sum(count))
+
+resources_by_type_grouped$type_grouped = factor(resources_by_type_grouped$type_grouped, resources_by_type_grouped %>% pull(type_grouped) %>% rev())
+
+ggplot(resources_by_type_grouped, aes(x = 3, y = count, fill = type_grouped)) + 
+  geom_col() +
+  coord_polar(theta="y") + 
+  xlim(c(1, 4)) +
+  theme_void() +
+  scale_fill_manual(values = COLORPALETTE) +
+  theme(legend.position = "bottom", text = element_text(family = "DM Sans", size = 22))
+
+ggsave(filename = "~/GitHub/outbreak-resources-paper/figures/resources_by_type.svg", device = "svg", width = width, height = height)
+
+
+
+  # bargraph of resources by type/source ------------------------------------
+
 COLORPALETTE = c("#4E79A7", "#f28e2b", "#59a14f","#e15759", "#499894","#B6992D",  "#D37295", "#B07AA1","#9D7660", "#bcbd22",
                  "#aecBe8", "#FFBE7D",  "#8CD17D", "#FF9D9A",  "#86BCB6", "#F1CE63","#FABFD2",  "#D4A6C8", "#D7B5A6",  "#79706E")
 
 names(COLORPALETTE) = resources_by_curator
 
-
-# Plot the results -- full scale to encapsulate the LitCovid responses
-ggplot(resources_by_source_grouped, 
-       aes(x = type_grouped, y = count, fill = term, colour = term)) +
-  geom_col(position = position_dodge2(width = 1, preserve = "single", padding = 0.2), width = 1) +
-  geom_text(aes(y = count - 100, label = scales::comma(count, accuracy = 1)), 
-            position = position_dodge2(width = 1, preserve = "single", padding = 0.2), hjust = 1, vjust = 0.5, colour = "white") +
-  geom_text(aes(y = count + 1000, label = term), position = position_dodge2(width = 1, preserve = "single", padding = 0.2), hjust = 0, vjust = 0.5) +
-  scale_y_continuous(labels=scales::comma, expand = c(0, 100, 0, 20000)) +
-  scale_colour_manual(values = COLORPALETTE) +
+ggplot(resources_by_source_grouped, aes(x = term, y = count, colour = term, fill = term)) + 
+  geom_col() +
   scale_fill_manual(values = COLORPALETTE) +
-  coord_flip() +
-  ggtitle("Resources in outbreak.info by resource type and source", subtitle = paste0("As of ", format(Sys.time(), "%d %B %Y"))) +
-  theme_minimal() + 
-  theme(legend.position = "none", panel.grid.major.y = element_blank(), axis.title = element_blank(), text = element_text(size = 24))
-
-
-ggsave(filename = "resources_pubs.svg", device = "svg", width = width, height = height)
-
-# Plot the results -- truncated scale without LitCovid
-countMax = resources_by_source_grouped %>% filter(type_grouped != "Publication") %>% 
-  pull(count) %>% max()
-
-ggplot(resources_by_source_grouped, 
-       aes(x = type_grouped, y = count, fill = term, colour = term)) +
-  geom_col(position = position_dodge2(width = 1, preserve = "single", padding = 0.2), width = 1) +
-  geom_text(aes(y = count - 35, label = scales::comma(count, accuracy = 1)), position = position_dodge2(width = 1, preserve = "single", padding = 0.2), 
-            hjust = 1, vjust = 0.5, colour = "white") +
-  geom_text(aes(y = count + 100, label = term), position = position_dodge2(width = 1, preserve = "single", padding = 0.2), hjust = 0, vjust = 0.5) +
-  scale_y_continuous(labels=scales::comma, expand = c(0, 100, 0, 1000), limits = c(0, countMax)) +
   scale_colour_manual(values = COLORPALETTE) +
-  scale_fill_manual(values = COLORPALETTE) +
+  scale_y_continuous(labels=scales::comma) +
+  facet_wrap(~type_grouped, scales = "free_x") +
+  geom_text(aes(y = count + 50, label = scales::comma(count, accuracy = 1)),  hjust = 0, vjust = 0.5, family = "DM Sans") +
   coord_flip() +
-  ggtitle("Resources in outbreak.info by resource type and source", subtitle = paste0("As of ", format(Sys.time(), "%d %B %Y"))) +
-  theme_minimal() + 
-  theme(legend.position = "none", panel.grid.major.y = element_blank(), axis.title = element_blank(), text = element_text(size = 24))
+  theme_minimal() +
+  theme(legend.position = "none", panel.grid.minor.y = element_blank(), panel.grid.major.y = element_blank(), text = element_text(family = "DM Sans", size = 22))
 
-
-ggsave(filename = "resources_all.svg", device = "svg", width = width, height = height)
+ggsave(filename = "~/GitHub/outbreak-resources-paper/figures/resources_by_source.svg", device = "svg", width = width, height = height)
