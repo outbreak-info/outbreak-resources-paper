@@ -1,4 +1,4 @@
-# Creates a plot of resources in outbreak.info, broken down by resourece type and source location.
+# Creates a plot of resources in outbreak.info, broken down by resource type and source location.
 library(tidyverse)
 library(outbreakinfo)
 library(forcats)
