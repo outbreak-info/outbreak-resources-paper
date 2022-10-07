@@ -102,9 +102,9 @@ variant_by_week_type = variant_results %>%
   mutate(pct_resources = n / total)
 
 
-ggplot(variant_by_week_type, aes(x = iso_week_date, y = pct_resources, colour = type)) + geom_line() +facet_wrap(~type, scales="free_y") %>% 
-  left_join(all_resources_by_week_type, by = "iso_week_date") %>% 
-  mutate(pct_resources = n / total)
+ggplot(variant_by_week_type, aes(x = iso_week_date, y = pct_resources, colour = type)) +
+  geom_line() +
+  facet_wrap(~type, scales="free_y")
 
 # Longitudinal trace
 ggplot(variant_by_week, aes(x = iso_week_date, y = pct_resources)) +
