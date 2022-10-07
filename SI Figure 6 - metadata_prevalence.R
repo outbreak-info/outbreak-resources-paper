@@ -95,9 +95,11 @@ ggplot(df, aes( x = property, y = type, fill = percent)) +
           subtitle = "Percentage of records containing each property") +
   theme_minimal() +
   theme(text = element_text(family = "DM Sans"),
-        panel.grid = element_blank(),
+        # panel.grid = element_blank(),
         axis.text.x.top = element_text(angle = 45, hjust = 0),
         axis.text.x.bottom = element_text(angle = -45, hjust = 0),
+        axis.ticks.length.x = unit(0.1, "cm"),
+        axis.ticks.x.bottom = element_line(colour = "black", size = 0.35),
         legend.position = "bottom")
 
 
