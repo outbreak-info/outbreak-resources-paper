@@ -31,7 +31,7 @@ resources_by_source = map_df(resources_by_type %>% pull(term), getSources)
 
 # Group together fields into "other" category
 resources_by_source_grouped = resources_by_source %>% 
-  mutate(type_grouped = ifelse(type %in% c("Publication", "ClinicalTrial", "Dataset", "Protocol", "SoftwareSourceCode", "Analysis"),
+  mutate(type_grouped = ifelse(type %in% c("Publication", "ClinicalTrial", "Dataset", "Protocol", "ComputationalTool", "Analysis"),
                                type, "Other")) %>% 
   group_by(type_grouped, term) %>% 
   summarise(count = sum(count))
@@ -46,16 +46,17 @@ resources_by_source_grouped$term = factor(resources_by_source_grouped$term, reso
 
 
 # Resources by type donut chart
-COLORPALETTE = c("#4E79A7", "#f28e2b", "#59a14f","#e15759", "#499894","#B6992D",  "#D37295", "#B07AA1","#9D7660", "#bcbd22",
-                 "#aecBe8", "#FFBE7D",  "#8CD17D", "#FF9D9A",  "#86BCB6", "#F1CE63","#FABFD2",  "#D4A6C8", "#D7B5A6",  "#79706E")
-
-names(COLORPALETTE) = resources_by_type_grouped %>% arrange(desc(count)) %>% pull(type_grouped)
-
 resources_by_type_grouped = resources_by_type %>% 
   mutate(type_grouped = ifelse(term %in% c("Publication", "ClinicalTrial", "Dataset", "Protocol", "SoftwareSourceCode", "Analysis"),
                                term, "Other")) %>% 
   group_by(type_grouped) %>% 
   summarise(count = sum(count))
+
+
+COLORPALETTE = c("#4E79A7", "#f28e2b", "#59a14f","#e15759", "#499894","#B6992D",  "#D37295", "#B07AA1","#9D7660", "#bcbd22",
+                 "#aecBe8", "#FFBE7D",  "#8CD17D", "#FF9D9A",  "#86BCB6", "#F1CE63","#FABFD2",  "#D4A6C8", "#D7B5A6",  "#79706E")
+
+names(COLORPALETTE) = resources_by_type_grouped %>% arrange(desc(count)) %>% pull(type_grouped)
 
 resources_by_type_grouped$type_grouped = factor(resources_by_type_grouped$type_grouped, resources_by_type_grouped %>% pull(type_grouped) %>% rev())
 
@@ -82,8 +83,8 @@ ggplot(resources_by_source_grouped, aes(x = term, y = count, colour = term, fill
   geom_col() +
   scale_fill_manual(values = COLORPALETTE) +
   scale_colour_manual(values = COLORPALETTE) +
-  scale_y_continuous(labels=scales::comma) +
-  facet_wrap(~type_grouped, scales = "free_x") +
+  scale_y_log10(labels=scales::comma) +
+  facet_wrap(~type_grouped) +
   geom_text(aes(y = count + 50, label = scales::comma(count, accuracy = 1)),  hjust = 0, vjust = 0.5, family = "DM Sans") +
   coord_flip() +
   theme_minimal() +
