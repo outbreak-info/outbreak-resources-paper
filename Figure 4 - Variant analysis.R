@@ -52,17 +52,27 @@ getVOCResources = function(query, fields = c("@type", "date")) {
 }
 
 
-all_resources = getVOCResources(query="__all__")
+all_resources = getVOCResources(query="__all__", fields = c("@type", "date", "topicCategory", "keywords", "name", "description", "measurementTechnique"))
 
 all_resources_by_week = all_resources %>% 
   group_by(iso_week_date) %>%
   count() %>% 
   rename(total = n)
 
+topics_all = lapply(all_resources %>% pull(topicCategory), unlist) %>% unlist() %>% as_tibble() %>% count(value)
+
 ggplot(all_resources_by_week, aes(x = iso_week_date, y = total)) +
   geom_col()
 
 # Overall trends in variant searches --------------------------------------
+# Date where the variant was declared a VOC by the WHO
+voc_who_dates = tribble(~variant, ~date,
+                        "Alpha & Beta", as_date("2020-12-18"),
+                        "Gamma", as_date("2021-02-01"),
+                        "Delta", as_date("2021-05-11"),
+                        "Omicron", as_date("2021-11-26")
+                        )
+
 variant_results = getVOCResources("variant OR lineage", 
                                   fields = c("@type", "date", "topicCategory", "keywords", "name", "description", "measurementTechnique"))
 
@@ -72,10 +82,22 @@ variant_by_week = variant_results %>%
   left_join(all_resources_by_week, by = "iso_week_date") %>% 
   mutate(pct_resources = n / total)
 
-
+# Longitudinal trace
 ggplot(variant_by_week, aes(x = iso_week_date, y = pct_resources)) +
+  geom_vline(aes(xintercept = date), linetype = 2, data = voc_who_dates, colour = "red") +
+  geom_text(aes(x = date, y = 0.085, label = variant),  data = voc_who_dates, colour = "red", hjust = 0, nudge_x = 10) +
   geom_line() +
-  ggtitle("Variant/Lineage resources by update date", subtitle = "Percent of total resources in outbreak.info Research Library")
+  scale_y_continuous(labels = scales::percent) +
+  ggtitle("Research on variants increases as VOCs become the dominant form of SARS-CoV-2", subtitle = "Resources concerning variants or lineage a proportion of all resources in the outbreak.info Research Library")
+
+# By type
+ggplot(variant_results %>% count(type = `@type`), aes(y = type, x = n)) + 
+  geom_col() +
+  ggtitle("Variant resources by type")
+
+
+keywords = lapply(variant_results %>% pull(keywords), unlist) %>% unlist() %>% as_tibble() %>% count(value)
+topics = lapply(variant_results %>% pull(topicCategory), unlist) %>% unlist() %>% as_tibble() %>% count(value)
 
 # Resources by VOC --------------------------------------------------------
 
@@ -123,3 +145,13 @@ ggplot(resources_voc_by_date, aes(x = iso_week_date, y = n, fill = variant)) +
   facet_wrap(~variant) +
   theme_minimal() + 
   theme(legend.position = "none")
+
+
+# looking at topics over time ---------------------------------------------
+treatment = getVOCResources("topicCategory:Treatment") %>% mutate(topicCategory = "Treatment")
+prev = getVOCResources('topicCategory:"Individual Prevention" OR Prevention')%>% mutate(topicCategory = "Prevention")
+epi = getVOCResources('topicCategory:"Epidemiology"') %>% mutate(topicCategory = "Epidemiology")
+immuno = getVOCResources('topicCategory:"Immunological Response"') %>% mutate(topicCategory = "Immunological Response")
+vax = getVOCResources('topicCategory:"Vaccines"') %>% mutate(topicCategory="Vaccines")
+
+ggplot()
