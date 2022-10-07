@@ -6,7 +6,7 @@ library(extrafont)
 
 
 # setup -------------------------------------------------------------------
-dir_save = "~/Google Drive/Manuscripts/2022 outbreak.info Research Library/"
+dir_save = "~/Google Drive/Manuscripts/2022 outbreak.info Research Library/Supplemental Data/"
 
 
 # Calculates the prevalence of each of the metadata fields by type --------
@@ -100,13 +100,14 @@ ggplot(df, aes( x = property, y = type, fill = percent)) +
         axis.text.x.bottom = element_text(angle = -45, hjust = 0),
         axis.ticks.length.x = unit(0.1, "cm"),
         axis.ticks.x.bottom = element_line(colour = "black", size = 0.35),
+        plot.margin = unit(c(5.5, 60, 5.5, 5.5), "points"),
         legend.position = "bottom")
 
 
 # save the results --------------------------------------------------------
 extrafont::loadfonts()
 
-ggsave(filename = paste0(dir_save, "Supplemental Figure 2 - Metadata Prevalence.pdf"), device = "pdf", width = 10, height = 4.5)
-ggsave(filename = paste0(dir_save, "Supplemental Figure 2 - Metadata Prevalence.png"), device = "png", width = 10, height = 4.5)
+ggsave(filename = paste0(dir_save, "Supplemental Figure 2 - Metadata Prevalence.pdf"), device = "pdf", width = 10, height = 4)
+ggsave(filename = paste0(dir_save, "Supplemental Figure 2 - Metadata Prevalence.png"), device = "png", width = 10, height = 4)
 
 write_csv(df, paste0(dir_save, "Supplemental Table 1 - Metadata Prevalence.csv"))
