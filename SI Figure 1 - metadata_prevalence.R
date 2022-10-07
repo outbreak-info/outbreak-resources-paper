@@ -106,6 +106,7 @@ ggplot(df, aes( x = property, y = type, fill = percent)) +
 # save the results --------------------------------------------------------
 extrafont::loadfonts()
 
-ggsave(filename = paste0(dir_save, "Supplemental Figure 4 - Metadata Prevalence.pdf"), device = "pdf", width = 10, height = 4.5)
+ggsave(filename = paste0(dir_save, "Supplemental Figure 2 - Metadata Prevalence.pdf"), device = "pdf", width = 10, height = 4.5)
+ggsave(filename = paste0(dir_save, "Supplemental Figure 2 - Metadata Prevalence.png"), device = "png", width = 10, height = 4.5)
 
-write_csv(df, paste0(dir_save, "Supplemental Table 4 - Metadata Prevalence.csv"))
+write_csv(df, paste0(dir_save, "Supplemental Table 1 - Metadata Prevalence.csv"))
