@@ -6,6 +6,7 @@ library(forcats)
 # Set some constants
 width = 14
 height = 10
+filedir = "~/GitHub/outbreak-resources-paper/R exports/"
 
 # Get the resources by type, to order the totals
 resources_by_type_response = getResourcesData(facets="@type", facet_size = 50, size = 0)
@@ -68,7 +69,7 @@ ggplot(resources_by_type_grouped, aes(x = 3, y = count, fill = type_grouped)) +
   scale_fill_manual(values = COLORPALETTE) +
   theme(legend.position = "bottom", text = element_text(family = "DM Sans", size = 22))
 
-ggsave(filename = "~/GitHub/outbreak-resources-paper/figures/resources_by_type.svg", device = "svg", width = width, height = height)
+ggsave(filename = paste0(filedir, "resources_by_type.svg"), device = "svg", width = width, height = height)
 
 
 
@@ -90,4 +91,4 @@ ggplot(resources_by_source_grouped, aes(x = term, y = count, colour = term, fill
   theme_minimal() +
   theme(legend.position = "none", panel.grid.minor.y = element_blank(), panel.grid.major.y = element_blank(), text = element_text(family = "DM Sans", size = 22))
 
-ggsave(filename = "~/GitHub/outbreak-resources-paper/figures/resources_by_source.svg", device = "svg", width = width, height = height)
+ggsave(filename = paste0(filedir,"Figure1_resources_by_source.svg"), device = "svg", width = width, height = height)
