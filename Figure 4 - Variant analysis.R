@@ -181,7 +181,7 @@ extract_name = function(query) {
 }
 
 # Checking below the character limit...
-voc_queries %>% lapply(nchar)
+# voc_queries %>% lapply(nchar)
 
 # Get the resources by query
 resources_by_voc = map_df(voc_queries, function(x) getVOCResources(x, c("@type", "date", "name", "description")))
